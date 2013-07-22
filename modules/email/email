@@ -1,0 +1,5 @@
+email_func () {
+        which mailcheck > /dev/null && mailcheck -c | awk '/[0-9]* new/ { gsub( /\/home\/jimshoe\/.mail\/nathan@frcv\//,""); gsub( /\/var\/spool\/mail\/jimshoe/, "local"); printf "%s:%d ",$NF,$3 }'
+}
+
+OUTPUT=email_func
