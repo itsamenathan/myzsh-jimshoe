@@ -13,7 +13,6 @@ alias "."="cd .."
 alias "lsa"="ls -all -h"
 alias "inst"="sudo apt-get install"
 alias "search"="apt-cache search"
-#alias "screen"="screen -e \"^Zz\""
 alias "open"="/usr/bin/thunar"
 alias "wgetr"='wget -r --no-parent --reject "index.html*"'
 alias "network-monitor"='bwm-ng'
@@ -27,7 +26,6 @@ if [ $HOST = "lap-bag" ]; then
 fi
 
 if [ $HOST = "nwarner-dell-desktop" ]; then
-  alias "g7"='sudo openconnect --no-cert-check -u nwarner --authgroup=G7admin -b g7.avocent.com '
   alias "tickets"='t in --switch tickets'
   alias "tapes"='t in --switch tapes'
   alias "general"='t in --switch general_work'
