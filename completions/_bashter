@@ -1,0 +1,9 @@
+#compdef bashter
+_bashter () {
+	local -a verbs
+	IFS=$'\n'
+	verbs=( $(grep "#DOC [a-z].*:" "$(which bashter)" | sed 's/#DOC //g;s/  *: /:/') )
+	_describe -t commands 'bashter commands' verbs -V1
+}
+
+_bashter "$@"
