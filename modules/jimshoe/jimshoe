@@ -33,3 +33,7 @@ if [ $HOST = "nwarner-dell-desktop" ]; then
   alias "meeting"='t in --switch meeting'
   alias "goof"='t in --switch goof'
 fi
+
+youtube() {
+  vlc $(youtube-dl -g "$*" ) &> /dev/null
+}
