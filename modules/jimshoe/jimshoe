@@ -35,5 +35,7 @@ if [ $HOST = "nwarner-dell-desktop" ]; then
 fi
 
 youtube() {
-  vlc $(youtube-dl -g "$*" ) &> /dev/null &
+  axel -an 32 $(youtube-dl -g $* )
+  [ $? != 0 ] && return
+  vlc "/tmp/$file" &/dev/null &
 }
