@@ -35,7 +35,8 @@ if [ $HOST = "nwarner-dell-desktop" ]; then
 fi
 
 youtube() {
-  axel -an 32 $(youtube-dl -g $* )
+  vid=$(/usr/bin/youtube-dl -gt --get-filename $*)
+  axel -an 32 -o "$(echo $vid | tail -n 1)" $(echo $vid | head -n 1 )
   [ $? != 0 ] && return
-  vlc "/tmp/$file" &/dev/null &
+  /usr/bin/notify-send "Youtube Download" "$(echo $vid | tail -n 1) done!"
 }
