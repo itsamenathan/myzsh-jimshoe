@@ -1,0 +1,134 @@
+#compdef t
+
+_t_timesheet=( '*:timesheet:_t_complete_timesheet' )
+
+#{{{ Main arguments
+_t ()
+{
+  local curcontext="$curcontext" state lstate line
+
+  _arguments -s \
+    '-C[specify an alternative configuration file]:configuration file:_file' \
+    '-b[specify an alternative timebook file]:timebook file:_file' \
+    '*::t command:_t_command'
+}
+#}}}
+
+#{{{ Commands
+(( $+functions[_t_command] )) || _t_command ()
+{
+  local -a _t_cmds
+  #{{{ Commands
+  _t_cmds=(
+    {write,alter}':alter the description of the active period'
+    {shell,backend}':open the backend''s interactive shell'
+    {show,display}':display timesheet, by default the current one'
+    {start,in}':start the timer for the current timesheet'
+    {kill,delete}':delete a timesheet'
+    {ls,list}':show the available timesheets'
+    {info,now}':show the status of the current timesheet'
+    {stop,out}:'stop the timer for the current timesheet'
+    {active,running}':show all running timesheets'
+    'switch:switch to a new timesheet'
+  )
+  #}}}
+
+  if (( CURRENT == 1 )); then
+    _describe -t commands 't command' _t_cmds || compadd "$@"
+  else
+    local curcontext="$curcontext"
+
+    cmd="${${_t_cmds[(r)$words[1]:*]%%:*}}"
+    case $cmd in
+      show) cmd="display";;
+      write) cmd="alter";;
+      shell) cmd="backend";;
+      start) cmd="in";;
+      delete) cmd="kill";;
+      ls) cmd="list";;
+      info) cmd="now";;
+      stop) cmd="out";;
+      active) cmd="running";;
+    esac 
+
+    if (( $#cmd )); then
+      curcontext="${curcontext%:*:*}:t-${cmd}:"
+      _call_function ret _t_$cmd || _message 'No more arguments'
+    else
+      _message "unknown t command: $words[1]"
+    fi
+
+    return ret
+  fi
+}
+#}}}
+
+#{{{ Timesheet completion
+
+(( $+functions[_t_complete_timesheet] )) || _t_complete_timesheet ()
+{
+  local -a _timesheets
+  local expl
+  _timesheets=$(t ls | tail -n +2 | awk '{ sub(/^\*/, "", $1); print $1; }')
+  _timesheets=( ${(f)_timesheets} )
+  _describe 'timesheets' _timesheets $*
+}
+
+#}}}
+
+#{{{ Command completions
+
+(( $+functions[_t_switch] )) || _t_switch ()
+{
+  _arguments $_t_timesheet
+}
+
+(( $+functions[_t_alter] )) || _t_alter ()
+{
+  _arguments '*:notes'
+}
+
+(( $+functions[_t_display] )) || _t_display ()
+{
+  _arguments $_t_timesheet
+}
+
+(( $+functions[_t_in] )) || _t_in ()
+{
+  _arguments \
+    '--switch[switch timesheets]:timesheet:_t_complete_timesheet' \
+    '*:notes'
+}
+
+(( $+functions[_t_display] )) || _t_display ()
+{
+  _arguments $_t_timesheet
+}
+
+(( $+functions[_t_kill] )) || _t_kill ()
+{
+  _arguments $_t_timesheet
+}
+
+(( $+functions[_t_display] )) || _t_display ()
+{
+  _arguments $_t_timesheet
+}
+
+(( $+functions[_t_now] )) || _t_now ()
+{
+  _arguments \
+    '--simple[simple format]' \
+    '*:timesheet:_t_complete_timesheet'
+}
+
+(( $+functions[_t_out] )) || _t_out ()
+{
+  _arguments \
+    '--verbose[verbose output]' \
+    '*:timesheet:_t_complete_timesheet'
+}
+
+#}}}
+
+_t "$@"

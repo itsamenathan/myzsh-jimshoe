@@ -9,34 +9,25 @@ export PATH=${PATH}:/sbin
 export NODE_PATH=/usr/local/lib/node_modules
 
 # alias'
-alias "."="cd .."
-alias "lsa"="ls -all -h"
+alias "apt-get"='sudo apt-get'
 alias "inst"="sudo apt-get install"
 alias "search"="apt-cache search"
 alias "open"="/usr/bin/thunar"
 alias "wgetr"='wget -r --no-parent --reject "index.html*"'
 alias "network-monitor"='bwm-ng'
 alias "vimwiki"='vim ~/vimwiki/index.wiki'
-alias "apt-get"='sudo apt-get'
+alias "extract"='aunpack'
 
 # laptop spacific 
 if [ $HOST = "lap-bag" ]; then
-  export PATH=${PATH}:/home/jimshoe/android-sdk-linux/platform-tools
-  alias "minecraft"='java -Xmx2048M -Xms1024M -cp ~/minecraft.jar net.minecraft.LauncherFrame'
+  alias "minecraft"='java -Xmx2048M -Xms1024M -jar ~/Minecraft.jar'
+  alias "android_dev"='t in --switch android_dev && $HOME/workspace/android_dev'
 fi
 
 if [ $HOST = "nwarner-dell-desktop" ]; then
   alias "tickets"='t in --switch tickets'
   alias "tapes"='t in --switch tapes'
   alias "general"='t in --switch general_work'
-  alias "svn_move"='t in --switch svn_move'
   alias "meeting"='t in --switch meeting'
   alias "goof"='t in --switch goof'
 fi
-
-youtube() {
-  vid=$(/usr/bin/youtube-dl -gt --get-filename $*)
-  axel -an 32 -o "$(echo $vid | tail -n 1)" $(echo $vid | head -n 1 )
-  [ $? != 0 ] && return
-  /usr/bin/notify-send "Youtube Download" "$(echo $vid | tail -n 1) done!"
-}
