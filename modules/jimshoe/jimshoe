@@ -15,8 +15,11 @@ alias "search"="apt-cache search"
 alias "open"="/usr/bin/thunar"
 alias "wgetr"='wget -r --no-parent --reject "index.html*"'
 alias "network-monitor"='bwm-ng'
-alias "vimwiki"='vim ~/vimwiki/index.wiki'
+alias "vimwiki"='vim ~/Dropbox/nathan/vimwiki/index.wiki'
 alias "extract"='aunpack'
+
+# toggle
+alias "goof"='~/bin/t start goof @goof'
 
 # laptop spacific 
 if [ $HOST = "lap-bag" ]; then

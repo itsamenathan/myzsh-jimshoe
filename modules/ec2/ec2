@@ -1,0 +1,26 @@
+if [ -f $HOME/.ec2 ]; then
+  source $HOME/.ec2
+else
+  return
+fi
+
+ec2list() {
+  euca-describe-instances | tac | awk '/^TAG.*Name/ {x=$5} /^INSTANCE/ { printf "%-20s %-20s %-46s\n", x, $2,$4}'
+}
+
+ec2listrunning() {
+  euca-describe-instances  | tac | awk '/^TAG.*Name/ {x=$5} /^INSTANCE.*running/ { printf "%-10s %-15s %-46s %-16s %-16s\n", x,$2,$4,$14,$15}'
+}
+
+ec2stoprunning() {
+  euca-stop-instances $(euca-describe-instances | awk '/^INSTANCE.*running/ { printf $2" "}')
+}
+
+ec2stop() {
+  euca-stop-instances $1
+}
+
+ec2start() {
+  euca-start-instances $1
+}
+
