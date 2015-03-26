@@ -6,31 +6,21 @@ setopt extended_glob
 
 export PATH=${PATH}:/usr/sbin
 export PATH=${PATH}:/sbin
-export NODE_PATH=/usr/local/lib/node_modules
 
 # alias'
 alias "apt-get"='sudo apt-get'
 alias "inst"="sudo apt-get install"
 alias "search"="apt-cache search"
-alias "open"="/usr/bin/thunar"
 alias "wgetr"='wget -r --no-parent --reject "index.html*"'
 alias "network-monitor"='bwm-ng'
 alias "vimwiki"='vim ~/Dropbox/nathan/vimwiki/index.wiki'
-alias "extract"='aunpack'
-
-# toggle
-alias "goof"='~/bin/t start goof @goof'
 
 # laptop spacific 
 if [ $HOST = "lap-bag" ]; then
-  alias "minecraft"='java -Xmx2048M -Xms1024M -jar ~/Minecraft.jar'
-  alias "android_dev"='t in --switch android_dev && $HOME/workspace/android_dev'
-fi
-
-if [ $HOST = "nwarner-dell-desktop" ]; then
-  alias "tickets"='t in --switch tickets'
-  alias "tapes"='t in --switch tapes'
-  alias "general"='t in --switch general_work'
-  alias "meeting"='t in --switch meeting'
-  alias "goof"='t in --switch goof'
+  alias inst="yaourt -S "
+  alias search="yaourt -Ss "
+  alias remove="yaourt -R "
+  alias update="yaourt -Syyua "
+  alias "open"="/usr/bin/xdg-open"
+  alias "extract"='aunpack'
 fi
