@@ -6,6 +6,9 @@ setopt extended_glob
 
 export PATH=${PATH}:/usr/sbin
 export PATH=${PATH}:/sbin
+export GIT_AUTHOR_EMAIL="nwarner@alteryx.com"
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 if hash apt-get 2>/dev/null; then
   alias "inst"="sudo apt-get install"
@@ -34,11 +37,15 @@ if hash xdg-open 2>/dev/null; then
   alias "open"="/usr/bin/xdg-open"
 fi
 
-if [ $HOST = "alteryxits-MacBook-Pro-7.local" ]; then
+if [ $HOST = "bf-mb-171" ]; then
+  export PATH=$HOME/bin:$PATH
   eval "$(chef shell-init zsh)"
   export CHEF_REPO=${HOME}/git/chef-repo
-
-  function knife-sdd(){
-    knife $@ -c ~/.chef/knife-sdd.rb
-  }
+  export GEMINABOX="http://den-do-ops-01:9292"
+  source ${HOME}/.terraform.d/tfvars
+  export GITLAB_TOKEN="mhJhZ_gnLxxaNHBSxPbR"
+  export AWS_SDK_LOAD_CONFIG=1
+  export CI_REGISTRY=registry.git.alteryx.com
+  export GIT_AUTHOR_EMAIL="nwarner@alteryx.com"
+  alias notes='vim -c "cd ~/Dropbox/nathan/notes" ~/Dropbox/nathan/notes/work/today.md'
 fi
