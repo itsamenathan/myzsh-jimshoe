@@ -6,7 +6,7 @@ setopt extended_glob
 
 export PATH=${PATH}:/usr/sbin
 export PATH=${PATH}:/sbin
-export GIT_AUTHOR_EMAIL="nwarner@alteryx.com"
+export EMAIL="nathan@frcv.net"
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -38,6 +38,7 @@ if hash xdg-open 2>/dev/null; then
 fi
 
 if [ $HOST = "bf-mb-171" ]; then
+  export EMAIL="nwarner@alteryx.com"
   export PATH=$HOME/bin:$PATH
   eval "$(chef shell-init zsh)"
   export CHEF_REPO=${HOME}/git/chef-repo
@@ -46,6 +47,5 @@ if [ $HOST = "bf-mb-171" ]; then
   export GITLAB_TOKEN="mhJhZ_gnLxxaNHBSxPbR"
   export AWS_SDK_LOAD_CONFIG=1
   export CI_REGISTRY=registry.git.alteryx.com
-  export GIT_AUTHOR_EMAIL="nwarner@alteryx.com"
   alias notes='vim -c "cd ~/Dropbox/nathan/notes" ~/Dropbox/nathan/notes/work/today.md'
 fi
